@@ -1,0 +1,10 @@
+lastupdatetimestamp=1754211452
+lastunreachabletime=1754211452
+[participation]
+agreed=0
+declined=0
+nonreplied=3
+[usage]
+taken=0
+rejected=0
+connected=false

@@ -1,0 +1,9 @@
+lastupdatetimestamp=1754215168
+[participation]
+agreed=1
+declined=0
+nonreplied=1
+[usage]
+taken=0
+rejected=0
+connected=true
