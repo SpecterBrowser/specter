@@ -1,200 +1,104 @@
-# LibreWolf Source Repository
+# Specter Browser Source Repository
 
-This repository contains all the patches and theming that make up LibreWolf, as well as scripts and a Makefile to build LibreWolf. There also is the [Settings repository](https://codeberg.org/librewolf/settings), which contains the LibreWolf preferences.
+Welcome to the official source repository for **Specter Browser** — a hardened, privacy-focused web browser built on top of [LibreWolf](https://librewolf.net), tightly integrated with the [I2P network](https://geti2p.net) via `i2pd`.
 
-## LibreWolf overview
+This project aims to make anonymous, censorship-resistant browsing accessible to anyone — journalists, whistleblowers, activists, and regular users who value privacy in the digital age.
 
-```mermaid
-graph LR
-    FFSRC(Firefox Source)
+---
 
-    FFSRC--Tarball--->Source
+## 🌐 What is Specter?
 
-    subgraph librewolf-community/
-    Settings(Settings)--"librewolf.cfg<br>policies.json"-->Source
-    Website(Website<br><br>- Documentation<br>- FAQ)
-    subgraph browser/
-        Source(Source<br><br>- Patches<br>- Theming<br>- Build scripts)
-        bsys6(bsys6<br><br>New Docker building<br>repository)
-        AppImage
-        Arch
-    end
-    end
-    Website-->librewolf.net
-    Source--"Source tarball"-->bsys6
-    AppImage--".appimage"-->librewolf.net
-    bsys6--"Windows setup.exe"--->librewolf.net
-    bsys6--"Windows portable.zip"--->librewolf.net
-    bsys6--"Windows .msix"--->MS("Microsoft Store")
-    bsys6--"Windows .nupkg"--->Chocolatey
-    bsys6--"Linux binary tarball"--->Flathub
-    bsys6--"Linux binary tarball"--> AppImage
-    bsys6--"Linux .deb"--->repo.librewolf.net
-    bsys6--"Linux .rpm"--->repo.librewolf.net
-    bsys6--"Linux binary tarball for 'librewolf-bin'"--> Arch
-    Source--"Source tarball for 'librewolf'"-->Arch
-    Arch-->AUR
-```
+**Specter** is a modified version of LibreWolf, enhanced with:
 
-## Active repositories and projects
+* ✅ Built-in support for **I2P (Invisible Internet Project)** using `i2pd`
+* ✅ Preconfigured **proxy routing** via local SOCKS5
+* ✅ Hardened browser base with **telemetry disabled**, **tracking protection**, and **enhanced privacy**
+* ✅ Automatic launch and configuration of the I2P daemon
+* ✅ Minimal setup — just run one script and you’re online through I2P
 
-List of browser build sub projects. These are the locations where people have their repositories and build artifacts.
+Unlike Tor, which focuses on anonymous access to the clear web, **I2P is a fully internal darknet** — designed for decentralized, censorship-resistant communication and hosting.
 
-Currently active build repositories:
+Specter connects you directly to `.i2p` sites (also called *eepsites*) and services with **zero configuration required**.
 
-* [Arch](https://codeberg.org/librewolf/arch): Arch Linux package
-* [Bsys5](https://codeberg.org/librewolf/bsys5): .deb/.rpm for Mint, Fedora, Ubuntu; .dmg for MacOS; portable/setup for Windows.
-* [Gentoo](https://codeberg.org/librewolf/gentoo): Gentoo package
+---
 
-Downstream distribution packages:
+## 🔒 Why use Specter?
 
-* [Alpine Linux aport](https://pkgs.alpinelinux.org/packages?name=librewolf&arch=)
+The modern internet is increasingly monitored, censored, and centralized. Specter is built for people who:
 
-Currently active (and known) forks:
+* 💬 Need **uncensored access** to information
+* 🧑‍💻 Want to **host anonymous services** with I2P
+* 🕵️ Require **strong anonymity** protections
+* 🧱 Live under **oppressive regimes**
+* 💡 Believe in a **free and private internet**
 
-* Cachy-Browser: https://github.com/cachyos/cachyos-browser-settings
+Specter makes the I2P experience **plug-and-play** — ideal for both power users and those unfamiliar with darknet technologies.
 
-Previous forks:
+---
 
-* FireDragon: https://github.com/dr460nf1r3/firedragon-browser
+## 🛠️ How It Works
 
-## LibreWolf build instructions
+Specter wraps the following components into a seamless experience:
 
-There are two ways to build LibreWolf. You can either use the source tarball or compile directly with this repository.
+1. **LibreWolf** – A Firefox fork with telemetry disabled and security hardened  
+2. **i2pd** – Lightweight I2P daemon written in C++, automatically configured and launched  
+3. **Custom Scripts** – To connect everything together and auto-launch on your system
 
-### Building from the Tarball
+When you run `./run.sh`, it starts `i2pd`, waits for it to connect to the I2P network, and launches LibreWolf with a preconfigured proxy.
 
-First, let's **[download the latest tarball](https://codeberg.org/librewolf/source/releases)**. This tarball is the latest produced by the [CI](https://gitlab.com/librewolf-community/browser/source/-/jobs). You can also check the sha256sum of the tarball there.
+All browser traffic is routed through `127.0.0.1:4447` via SOCKS5 → **i2pd → I2P network**.
 
-```bash
-tar xf <tarball>
-cd <folder>
-```
+---
 
-Then, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following commands:
+## 🧠 For Developers
 
-```bash
-./mach --no-interactive bootstrap --application-choice=browser
-./lw/setup-wasi-linux.sh
-```
+This repository includes:
 
-Finally you can build LibreWolf and then package or run it with the following commands:
+* 📦 Full LibreWolf source  
+* ⚙️ i2pd source (optional: replace with binary if needed)  
+* 🧩 Patch files and configuration  
+* 📁 Scripts for building and packaging  
+* 🖥️ Custom `run.sh` launcher for Linux systems  
 
-```bash
-./mach build
-./mach package
-# OR
-./mach run
-```
+---
 
-### Building with this Repository
+## 📦 Binary Releases
 
-First, clone this repository with Git:
+Prebuilt versions of Specter are available for:
 
-```bash
-git clone --recursive https://gitlab.com/librewolf-community/browser/source.git librewolf-source
-cd librewolf-source
-```
+* ✅ Linux (`.AppImage`, `.deb`, `.tar.gz`)  
+* ✅ Windows (`.exe`, `.zip`)  
+* 🚧 macOS (pending community support)  
 
-Next, build the LibreWolf source code with the following command:
+> If building i2pd is too difficult on your platform, don’t worry — we’ll include the binaries in official releases.
 
-```bash
-make dir
-```
+Download them from the [Releases](https://your.git.repo/specter-browser/releases) page.
 
-After that, you have to bootstrap your system to be able to build LibreWolf. You only have to do this one time. It is done by running the following command:
+---
 
-```bash
-make bootstrap
-```
+## 🏗️ Build Instructions
 
-Finally you can build LibreWolf and then package or run it with the following commands:
+     ```bash
+     git clone --recursive https://your.git.repo/specter-browser.git
+     cd specter-browser
 
-```bash
-make build
-make package
-# OR
-make run
-```
+# Build LibreWolf
+     make dir
+     make bootstrap
+     make build
+     make package
 
-## Translations
+# Build i2pd
+     cd i2pd-source
+     mkdir build && cd build
+     cmake ..
+     make -j$(nproc)
+     cd ../..
 
-We use Weblate to localize all LibreWolf-specific strings. You can help us by
-translating LibreWolf into your language at
-https://translate.codeberg.org/engage/librewolf. Here is the current translation
-status:
+# Launch everything
+     chmod +x run.sh
+     ./run.sh
 
-<a href="https://translate.codeberg.org/engage/librewolf/">
-<img src="https://translate.codeberg.org/widget/librewolf/multi-auto.svg" alt="Translation status" />
-</a>
-
-## Development Notes
-
-### How to make a patch
-
-The easiest way to make patches is to go to the LibreWolf source folder:
-```bash
-cd librewolf-$(cat version)
-git init
-git add <path_to_file_you_changed>
-git commit -am initial-commit
-git diff > ../mypatch.patch
-```
-We have Gitter / Matrix rooms, and on the website we have links to the various issue trackers.
-
-### How to work on an existing patch
-
-The easiest way to make patches is to go to the LibreWolf source folder:
-```bash
-make fetch # get the firefox tarball
-./scripts/git-patchtree.sh patches/sed-patches/disable-pocket.patch
-```
-Now change the source tree the way you want, keeping in mind to `git add` new files. When done, you can create the new patch with:
-```bash
-cd firefox-<version>
-git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD > ../my-patch-name.patch
-```
-This ID is the hash value of the first commit, which is called `initial`. Dont forget to commit changes before doing this diff, or the patch will be incomplete.
-
-
-### How to create a patch for problems in Mozilla's [Bugzilla](https://bugzilla.mozilla.org/).
-
-Well, first of all:
-
-* [Create an account](https://bugzilla.mozilla.org/createaccount.cgi).
-* Handy link: [Bugs Filed Today](https://bugzilla.mozilla.org/buglist.cgi?cmdtype=dorem&remaction=run&namedcmd=Bugs%20Filed%20Today&sharer_id=1&list_id=15939480).
-* The essential: [Firefox Source Tree Documentation](https://firefox-source-docs.mozilla.org/).
-
-Now that you have a patch in LibreWolf, that's not enough to upload to Mozilla. See, Mozilla only accepts patches against Nightly. So here is how to do that:
-
-If you have not done already, create the `mozilla-unified` folder and build Firefox with it:
-```bash
-hg clone https://hg.mozilla.org/mozilla-unified
-cd mozilla-unified
-hg update
-MOZBUILD_STATE_PATH=$HOME/.mozbuild ./mach --no-interactive bootstrap --application-choice=browser
-./mach build
-./mach run
-```
-If you skipped the previous step, you could ensure that you're up to date with:
-```bash
-cd mozilla-unified
-hg pull
-hg update
-```
-Now you can apply your patch to Nightly:
-```bash
-patch -p1 -i ../mypatch.patch
-```
-Now you let Mercurial create the patch:
-```bash
-hg diff > ../my-nightly-patch.patch
-```
-And it can be uploaded to Bugzilla.
-
-##### *(excerpt from the Mozilla readme)* Now the fun starts
-
-Time to start hacking! You should join us on [Matrix](https://chat.mozilla.org/), say hello in the [Introduction channel](https://chat.mozilla.org/#/room/#introduction:mozilla.org), and [find a bug to start working on](https://codetribute.mozilla.org/). See the [Firefox Contributors’ Quick Reference](https://firefox-source-docs.mozilla.org/contributing/contribution_quickref.html#firefox-contributors-quick-reference) to learn how to test your changes, send patches to Mozilla, update your source code locally, and more.
 
 ## Hey, I'm using MacOS or Windows..
 We understand, life isn't always fair 😺. The same steps as above do apply, you'll just have to walk through the beginning part of the guides for:
@@ -202,3 +106,50 @@ We understand, life isn't always fair 😺. The same steps as above do apply, yo
 * [Windows](https://firefox-source-docs.mozilla.org/setup/windows_build.html): Building on Windows is not very well tested.
 
 Help with testing these targets is always welcome.
+
+## 🤝 Contributing
+
+Specter is community-driven and open-source. You can help by:
+
+- 🐛 Reporting bugs
+- 🌍 Translating documentation
+- 💻 Writing patches or fixing issues
+- 📚 Improving the user experience or docs
+- 📦 Packaging for more platforms
+
+We welcome all contributions, small or large!
+
+To contribute, fork the repo, make your changes, and submit a pull request.
+
+---
+
+## 💸 Donations & Funding
+
+Specter is built and maintained by volunteers — passionate about privacy and freedom.
+
+You can help sustain the project by donating:
+
+- 🪙 Crypto (XMR, BTC, ETH addresses coming soon)
+- 🤝 Or contact us directly for support partnerships
+
+Donations go toward server costs, development time, and accessibility efforts.
+
+---
+
+## 📚 Related Projects
+
+- **LibreWolf** — the secure browser we’re based on  
+- **i2pd** — the I2P C++ daemon  
+- **I2P Network** — anonymous, distributed darknet  
+
+---
+
+## 📜 License
+
+The project combines code under:
+
+- MPL-2.0 (Mozilla Public License)  
+- MIT License  
+
+See `LICENSE` for details.
+
