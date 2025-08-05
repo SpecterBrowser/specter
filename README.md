@@ -15,10 +15,14 @@ This project aims to make anonymous, censorship-resistant browsing accessible to
 * ✅ Hardened browser base with **telemetry disabled**, **tracking protection**, and **enhanced privacy**
 * ✅ Automatic launch and configuration of the I2P daemon
 * ✅ Minimal setup — just run one script and you’re online through I2P
+* ✅ Optional access to the **clearnet via Acetone ouproxy** (experimental and slow)
 
 Unlike Tor, which focuses on anonymous access to the clear web, **I2P is a fully internal darknet** — designed for decentralized, censorship-resistant communication and hosting.
 
 Specter connects you directly to `.i2p` sites (also called *eepsites*) and services with **zero configuration required**.
+
+> 🌐 **Note:** Specter also includes experimental access to the clearnet using [Acetone ouproxy](https://i2pwiki.org/OuProxy). This allows reaching regular websites via I2P, though the speed and reliability are currently limited.  
+> To support faster and more secure clearnet access (e.g. through high-bandwidth exit nodes), **donations are needed**.
 
 ---
 
@@ -42,11 +46,13 @@ Specter wraps the following components into a seamless experience:
 
 1. **LibreWolf** – A Firefox fork with telemetry disabled and security hardened  
 2. **i2pd** – Lightweight I2P daemon written in C++, automatically configured and launched  
-3. **Custom Scripts** – To connect everything together and auto-launch on your system
+3. **Custom Scripts** – To connect everything together and auto-launch on your system  
+4. **Acetone ouproxy** – Optional bridge to access clearnet through I2P
 
 When you run `./run.sh`, it starts `i2pd`, waits for it to connect to the I2P network, and launches LibreWolf with a preconfigured proxy.
 
-All browser traffic is routed through `127.0.0.1:4447` via SOCKS5 → **i2pd → I2P network**.
+All browser traffic is routed through `127.0.0.1:4447` via SOCKS5 → **i2pd → I2P network**.  
+Clearnet access (e.g. `https://example.com`) goes through the **ouproxy tunnel**, if enabled.
 
 ---
 
@@ -78,47 +84,47 @@ Download them from the [Releases](https://your.git.repo/specter-browser/releases
 
 ## 🏗️ Build Instructions
 
-     ```bash
-     git clone --recursive https://your.git.repo/specter-browser.git
-     cd specter-browser
+    ```bash
+    git clone --recursive https://your.git.repo/specter-browser.git
+    cd specter-browser
 
 # Build LibreWolf
-     make dir
-     make bootstrap
-     make build
-     make package
+    make dir
+    make build
+    make package
 
 # Build i2pd
-     cd i2pd-source
-     mkdir build && cd build
-     cmake ..
-     make -j$(nproc)
-     cd ../..
+    cd i2pd/i2pd
+    mkdir build && cd build
+    cmake ..
+    make -j$(nproc)
+    cd ../..
 
 # Launch everything
-     chmod +x run.sh
-     ./run.sh
+    chmod +x run.sh
+    ./run.sh
+## ⚙️ macOS & Windows Notes
 
+We understand, life isn't always fair 😺. The same steps as above do apply—you'll just have to walk through the beginning part of the guides for:
 
-## Hey, I'm using MacOS or Windows..
-We understand, life isn't always fair 😺. The same steps as above do apply, you'll just have to walk through the beginning part of the guides for:
-* [MacOS](https://firefox-source-docs.mozilla.org/setup/macos_build.html): The cross-compiled Mac .dmg files are somewhat new. They should work, perhaps with the exception of the `make setup-wasi` step.
-* [Windows](https://firefox-source-docs.mozilla.org/setup/windows_build.html): Building on Windows is not very well tested.
+- [macOS Build Guide](https://firefox-source-docs.mozilla.org/setup/macos_build.html)  
+- [Windows Build Guide](https://firefox-source-docs.mozilla.org/setup/windows_build.html)  
 
 Help with testing these targets is always welcome.
+
+---
 
 ## 🤝 Contributing
 
 Specter is community-driven and open-source. You can help by:
 
-- 🐛 Reporting bugs
-- 🌍 Translating documentation
-- 💻 Writing patches or fixing issues
-- 📚 Improving the user experience or docs
-- 📦 Packaging for more platforms
+- 🐛 Reporting bugs  
+- 🌍 Translating documentation  
+- 💻 Writing patches or fixing issues  
+- 📚 Improving the user experience or docs  
+- 📦 Packaging for more platforms  
 
-We welcome all contributions, small or large!
-
+We welcome all contributions, small or large!  
 To contribute, fork the repo, make your changes, and submit a pull request.
 
 ---
@@ -129,10 +135,15 @@ Specter is built and maintained by volunteers — passionate about privacy and f
 
 You can help sustain the project by donating:
 
-- 🪙 Crypto (XMR, BTC, ETH addresses coming soon)
-- 🤝 Or contact us directly for support partnerships
+- 🪙 Crypto (XMR, BTC, ETH addresses coming soon)  
+- 🤝 Or contact us directly for support partnerships  
 
-Donations go toward server costs, development time, and accessibility efforts.
+Donations go toward:
+
+- Server and bandwidth costs  
+- Development time  
+- Clearnet ouproxy exit node infrastructure  
+- Improving performance and security  
 
 ---
 
@@ -141,6 +152,7 @@ Donations go toward server costs, development time, and accessibility efforts.
 - **LibreWolf** — the secure browser we’re based on  
 - **i2pd** — the I2P C++ daemon  
 - **I2P Network** — anonymous, distributed darknet  
+- **Acetone ouproxy** — clearnet bridge for I2P  
 
 ---
 
@@ -151,5 +163,4 @@ The project combines code under:
 - MPL-2.0 (Mozilla Public License)  
 - MIT License  
 
-See `LICENSE` for details.
-
+See `LICENSE` for details.  
