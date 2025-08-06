@@ -21,7 +21,7 @@ Unlike Tor, which focuses on anonymous access to the clear web, **I2P is a fully
 
 Specter connects you directly to `.i2p` sites (also called *eepsites*) and services with **zero configuration required**.
 
-> 🌐 **Note:** Specter also includes experimental access to the clearnet using [Acetone ouproxy](https://i2pwiki.org/OuProxy). This allows reaching regular websites via I2P, though the speed and reliability are currently limited.  
+> 🌐 **Note:** Specter also includes experimental access to the clearnet using outproxy.This allows reaching regular websites via I2P, though the speed and reliability are currently limited.  
 > To support faster and more secure clearnet access (e.g. through high-bandwidth exit nodes), **donations are needed**.
 
 ---
