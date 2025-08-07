@@ -54,6 +54,21 @@ When you run `./run.sh`, it starts `i2pd`, waits for it to connect to the I2P ne
 All browser traffic is routed through `127.0.0.1:4447` via SOCKS5 → **i2pd → I2P network**.  
 Clearnet access (e.g. `https://example.com`) goes through the **ouproxy tunnel**, if enabled.
 
+> ⚠️ **Important Note about Outproxy**  
+> Currently, **clearnet access via outproxy is disabled by default** in Specter.  
+> This feature is **experimental** and **not yet secure for heavy use**.  
+>  
+> While it allows limited browsing of regular internet sites through the I2P network, it relies on centralized exit nodes — which may log traffic or compromise anonymity.  
+>  
+> Outproxy access can be manually enabled by **uncommenting the relevant lines** in the configuration.  
+>  
+> **We do not recommend enabling it unless you fully understand the risks.**  
+>  
+> 👥 To make clearnet access via I2P safer, we need funding to run and audit secure, high-performance exit nodes.  
+>  
+> 👉 If you'd like to support this feature and help build a privacy-respecting alternative to Tor exits, **please consider donating**.
+
+
 ---
 
 ## 🧠 For Developers
@@ -137,14 +152,6 @@ You can help sustain the project by donating:
 
 - 🪙 Crypto (XMR, BTC, ETH addresses coming soon)  
 - 🤝 Or contact us directly for support partnerships  
-
-Donations go toward:
-
-- Server and bandwidth costs  
-- Development time  
-- Clearnet ouproxy exit node infrastructure  
-- Improving performance and security  
-
 ---
 
 ## 📚 Related Projects
