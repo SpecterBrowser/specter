@@ -150,7 +150,7 @@ Specter is built and maintained by volunteers — passionate about privacy and f
 
 You can help sustain the project by donating:
 
-- 🪙 Crypto (XMR, BTC, ETH addresses coming soon)  
+- 🪙 Crypto: [XMR, BTC, ETH addresses](https://specterbrowser.github.io/specter-site/donate.html)  
 - 🤝 Or contact us directly for support partnerships  
 ---
 
