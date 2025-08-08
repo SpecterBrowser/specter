@@ -3,6 +3,7 @@
 Welcome to the official source repository for **Specter Browser** — a hardened, privacy-focused web browser built on top of [LibreWolf](https://librewolf.net), tightly integrated with the [I2P network](https://geti2p.net) via `i2pd`.
 
 This project aims to make anonymous, censorship-resistant browsing accessible to anyone — journalists, whistleblowers, activists, and regular users who value privacy in the digital age.
+## [Specter Website](https://specterbrowser.github.io/specter-site/)
 
 ---
 
