@@ -9,7 +9,7 @@ This project aims to make anonymous, censorship-resistant browsing accessible to
 
 ## 🌐 What is Specter?
 
-**Specter** is a modified version of LibreWolf, enhanced with:
+*Specter* is a modified version of LibreWolf, enhanced with:
 
 * ✅ Built-in support for **I2P (Invisible Internet Project)** using `i2pd`
 * ✅ Preconfigured **proxy routing** via local SOCKS5
